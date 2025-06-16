@@ -86,7 +86,6 @@
 /Users/dhv06/.pub-cache/hosted/pub.dev/meta-1.16.0/lib/meta.dart
 /Users/dhv06/.pub-cache/hosted/pub.dev/meta-1.16.0/lib/meta_meta.dart
 /Users/dhv06/.pub-cache/hosted/pub.dev/nested-1.0.0/LICENSE
-/Users/dhv06/.pub-cache/hosted/pub.dev/nested-1.0.0/lib/nested.dart
 /Users/dhv06/.pub-cache/hosted/pub.dev/path-1.9.1/LICENSE
 /Users/dhv06/.pub-cache/hosted/pub.dev/path-1.9.1/lib/path.dart
 /Users/dhv06/.pub-cache/hosted/pub.dev/path-1.9.1/lib/src/characters.dart
@@ -105,19 +104,6 @@
 /Users/dhv06/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/LICENSE
 /Users/dhv06/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib/plugin_platform_interface.dart
 /Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/LICENSE
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/provider.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/async_provider.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/change_notifier_provider.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/consumer.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/deferred_inherited_provider.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/devtool.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/inherited_provider.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/listenable_provider.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/provider.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/proxy_provider.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/reassemble_handler.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/selector.dart
-/Users/dhv06/.pub-cache/hosted/pub.dev/provider-6.1.5/lib/src/value_listenable_provider.dart
 /Users/dhv06/.pub-cache/hosted/pub.dev/source_span-1.10.1/LICENSE
 /Users/dhv06/.pub-cache/hosted/pub.dev/sqflite-2.4.2/LICENSE
 /Users/dhv06/.pub-cache/hosted/pub.dev/sqflite-2.4.2/lib/sqflite.dart
@@ -874,8 +860,10 @@
 /Users/dhv06/Downloads/Coding/Flutter/packages/flutter_tools/lib/src/build_system/targets/icon_tree_shaker.dart
 /Users/dhv06/Downloads/Coding/Flutter/packages/flutter_tools/lib/src/build_system/targets/macos.dart
 /Users/dhv06/Downloads/Coding/Flutter/packages/flutter_tools/lib/src/build_system/targets/native_assets.dart
-/Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/database/user_database.dart
+/Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/controller/user_controller.dart
+/Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/database/db.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/main.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/models/user.dart
+/Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/pages/role_page.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/pages/user_page.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/pubspec.yaml

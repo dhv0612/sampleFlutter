@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
-import '../database/user_database.dart';
+import '../controller/user_controller.dart';
 
 class UserPage extends StatefulWidget {
-  const UserPage({Key? key}) : super(key: key);
+  const UserPage({super.key});
 
   @override
   State<UserPage> createState() => _UserPageState();
@@ -12,9 +12,6 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   List<User> users = [];
 
-  final nameController = TextEditingController();
-  final ageController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -22,79 +19,92 @@ class _UserPageState extends State<UserPage> {
   }
 
   Future refreshUsers() async {
-    final data = await UserDatabase.instance.readAllUsers();
+    final data = await UserController.readAllUsers();
     setState(() => users = data);
   }
 
-  Future addUser() async {
-    final name = nameController.text;
-    final age = int.tryParse(ageController.text) ?? 0;
-    if (name.isEmpty || age <= 0) return;
+  Future showUserDialog({User? user}) async {
+    final nameController = TextEditingController(text: user?.name ?? '');
+    final ageController = TextEditingController(
+        text: user != null ? user.age.toString() : '');
 
-    await UserDatabase.instance.create(User(name: name, age: age));
-    nameController.clear();
-    ageController.clear();
-    refreshUsers();
-  }
-
-  Future updateUser(User user) async {
-    final newName = await showDialog<String>(
+    final result = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Update User"),
-        content: TextField(
-          controller: TextEditingController(text: user.name),
-          onSubmitted: (value) => Navigator.pop(ctx, value),
+        title: Text(user == null ? 'Thêm người dùng' : 'Sửa người dùng'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(labelText: 'Tên'),
+            ),
+            TextField(
+              controller: ageController,
+              decoration: const InputDecoration(labelText: 'Tuổi'),
+              keyboardType: TextInputType.number,
+            ),
+          ],
         ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Hủy'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final name = nameController.text.trim();
+              final age = int.tryParse(ageController.text.trim()) ?? 0;
+              if (name.isNotEmpty && age > 0) {
+                if (user == null) {
+                  UserController.create(User(name: name, age: age));
+                } else {
+                  UserController.update(
+                    user.copyWith(name: name, age: age),
+                  );
+                }
+                Navigator.pop(ctx, true);
+              }
+            },
+            child: const Text('Lưu'),
+          ),
+        ],
       ),
     );
 
-    if (newName != null && newName.isNotEmpty) {
-      await UserDatabase.instance.update(
-        user.copyWith(name: newName),
-      );
+    if (result == true) {
       refreshUsers();
     }
   }
 
   Future deleteUser(int id) async {
-    await UserDatabase.instance.delete(id);
+    await UserController.delete(id);
     refreshUsers();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User CRUD with SQLite')),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: nameController,
-                    decoration: const InputDecoration(labelText: 'Name'),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    controller: ageController,
-                    decoration: const InputDecoration(labelText: 'Age'),
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: addUser,
-                ),
-              ],
-            ),
+      appBar: AppBar(
+        title: const Text('Danh sách người dùng'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.admin_panel_settings),
+            tooltip: 'Quản lý vai trò',
+            onPressed: () {
+              Navigator.pushNamed(context, '/roles');
+            },
           ),
-          Expanded(
-            child: ListView.builder(
+          IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Thêm người dùng',
+            onPressed: () => showUserDialog(),
+          ),
+        ],
+      ),
+      body: users.isEmpty
+          ? const Center(child: Text('Chưa có người dùng nào'))
+          : ListView.builder(
               itemCount: users.length,
               itemBuilder: (ctx, index) {
                 final user = users[index];
@@ -105,7 +115,7 @@ class _UserPageState extends State<UserPage> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.edit),
-                        onPressed: () => updateUser(user),
+                        onPressed: () => showUserDialog(user: user),
                       ),
                       IconButton(
                         icon: const Icon(Icons.delete),
@@ -116,9 +126,6 @@ class _UserPageState extends State<UserPage> {
                 );
               },
             ),
-          ),
-        ],
-      ),
     );
   }
 }
