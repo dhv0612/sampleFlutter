@@ -860,9 +860,11 @@
 /Users/dhv06/Downloads/Coding/Flutter/packages/flutter_tools/lib/src/build_system/targets/icon_tree_shaker.dart
 /Users/dhv06/Downloads/Coding/Flutter/packages/flutter_tools/lib/src/build_system/targets/macos.dart
 /Users/dhv06/Downloads/Coding/Flutter/packages/flutter_tools/lib/src/build_system/targets/native_assets.dart
+/Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/controller/role_controller.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/controller/user_controller.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/database/db.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/main.dart
+/Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/models/role.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/models/user.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/pages/role_page.dart
 /Users/dhv06/develop/Assetment ICD/sampleFlutter/lib/pages/user_page.dart

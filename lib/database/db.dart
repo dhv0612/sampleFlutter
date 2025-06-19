@@ -22,11 +22,19 @@ class DB {
 
   Future _createDB(Database db, int version) async {
     await db.execute('''
+      CREATE TABLE IF NOT EXISTS roles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL
+      )
+    ''');
+
+    await db.execute('''
       CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         age INTEGER NOT NULL,
-        role TEXT NOT NULL
+        role_id INTEGER,
+        FOREIGN KEY (role_id) REFERENCES roles(id)
       )
     ''');
   }

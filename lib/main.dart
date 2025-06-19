@@ -8,15 +8,14 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'User Role Manager',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      home: const UserPage(),
       routes: {
-        '/': (context) => const UserPage(),
-        '/roles': (context) => const RolePage(),
+        '/roles': (_) => const RolePage(),
       },
     );
   }

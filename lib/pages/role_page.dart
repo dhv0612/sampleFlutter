@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/user.dart';
-import '../controller/user_controller.dart';
+import '../models/role.dart';
+import '../controller/role_controller.dart';
 
 class RolePage extends StatefulWidget {
   const RolePage({super.key});
@@ -10,51 +10,67 @@ class RolePage extends StatefulWidget {
 }
 
 class _RolePageState extends State<RolePage> {
-  List<User> users = [];
-  final List<String> roles = ['Admin', 'Member', 'Viewer'];
+  List<Role> roles = [];
+  final nameController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    loadUsers();
+    loadRoles();
   }
 
-  Future loadUsers() async {
-    users = await UserController.readAllUsers();
+  Future loadRoles() async {
+    roles = await RoleController.readAllRoles();
     setState(() {});
   }
 
-  Future updateRole(User user, String newRole) async {
-    final updated = user.copyWith(role: newRole);
-    await UserController.update(updated);
-    loadUsers();
+  Future addRole() async {
+    final name = nameController.text.trim();
+    if (name.isNotEmpty) {
+      await RoleController.create(Role(name: name));
+      nameController.clear();
+      loadRoles();
+    }
+  }
+
+  Future deleteRole(int id) async {
+    await RoleController.delete(id);
+    loadRoles();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Phân quyền người dùng')),
-      body: ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (_, index) {
-          final user = users[index];
-          return ListTile(
-            title: Text(user.name),
-            subtitle: Text('Role hiện tại: ${user.role}'),
-            trailing: DropdownButton<String>(
-              value: user.role,
-              onChanged: (value) {
-                if (value != null) updateRole(user, value);
-              },
-              items: roles.map((role) {
-                return DropdownMenuItem(
-                  value: role,
-                  child: Text(role),
-                );
-              }).toList(),
+      appBar: AppBar(title: const Text('Quản lý vai trò')),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(controller: nameController, decoration: const InputDecoration(labelText: 'Tên vai trò')),
+                ),
+                IconButton(onPressed: addRole, icon: const Icon(Icons.add)),
+              ],
             ),
-          );
-        },
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: roles.length,
+              itemBuilder: (_, index) {
+                final role = roles[index];
+                return ListTile(
+                  title: Text(role.name),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () => deleteRole(role.id!),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

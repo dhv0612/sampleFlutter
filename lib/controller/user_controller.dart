@@ -1,5 +1,5 @@
-import '../models/user.dart';
 import '../database/db.dart';
+import '../models/user.dart';
 
 class UserController {
   static Future<User> create(User user) async {
@@ -11,7 +11,7 @@ class UserController {
   static Future<List<User>> readAllUsers() async {
     final db = await DB.instance.database;
     final result = await db.query('users');
-    return result.map((map) => User.fromMap(map)).toList();
+    return result.map((e) => User.fromMap(e)).toList();
   }
 
   static Future<int> update(User user) async {
@@ -21,11 +21,6 @@ class UserController {
 
   static Future<int> delete(int id) async {
     final db = await DB.instance.database;
-    return await db.delete('users', where: 'id = ?', whereArgs: [id]);
-  }
-
-  static Future close() async {
-    final db = await DB.instance.database;
-    db.close();
+    return db.delete('users', where: 'id = ?', whereArgs: [id]);
   }
 }
